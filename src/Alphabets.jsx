@@ -25,15 +25,16 @@ const SpeedyAlphabet = () => {
     isFinished,
     bestTime,
     isSubmitting,
+    handleReset,
   } = useTypingGame();
 
   return (
-    <div className="min-h-screen bg-[#f5f6f8] text-[#1c1f23] flex flex-col font-['Inter']">
+    <div className="min-h-screen bg-[#f8b538] text-[#780116] flex flex-col font-['Inter']">
       {/* HEADER */}
       <Header />
 
       {/* MAIN */}
-      <div className="flex flex-1 px-12 py-10 gap-10">
+      <div className="flex flex-col lg:flex-row flex-1 px-4 md:px-8 py-6 gap-6">
         {/* SIDEBAR */}
         <Sidebar
           wpm={wpm}
@@ -53,6 +54,7 @@ const SpeedyAlphabet = () => {
             inputRef={inputRef}
             handleInputChange={handleInputChange}
             isFinished={isFinished}
+            handleReset={handleReset}
           />
 
           {/* LATENCY SECTION (static for now) */}
