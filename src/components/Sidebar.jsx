@@ -1,4 +1,4 @@
-const Sidebar = ({ wpm, accuracy, highScores, loading }) => (
+const Sidebar = ({ wpm, accuracy, highScores, loading, bestTime }) => (
   <div className="w-1/4 space-y-10">
     <div>
       <p className="text-xs tracking-widest text-gray-400 mb-3 font-['Audiowide']">
@@ -27,6 +27,15 @@ const Sidebar = ({ wpm, accuracy, highScores, loading }) => (
             <span className="text-base text-gray-400 ml-2 font-['Inter']">
               %
             </span>
+          </p>
+        </div>
+
+        <div>
+          <p className="text-[11px] tracking-widest text-gray-400 mb-2 font-['Audiowide']">
+            PERSONAL BEST
+          </p>
+          <p className="text-[28px] font-['Audiowide'] tracking-wide text-purple-600 leading-none">
+            {bestTime ? bestTime.toFixed(2) + "s" : "--"}
           </p>
         </div>
       </div>

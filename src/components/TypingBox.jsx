@@ -4,6 +4,7 @@ const TypingBox = ({
   typedText,
   inputRef,
   handleInputChange,
+  isFinished,
 }) => (
   <div
     className="bg-[#dfe5ea] rounded-none px-8 py-14 cursor-text"
@@ -61,6 +62,11 @@ const TypingBox = ({
         </div>
       ))}
     </div>
+    {isFinished && (
+      <div className="mt-6 text-center text-green-600 font-['Audiowide'] text-lg">
+        COMPLETED in {elapsedTime}s 🚀
+      </div>
+    )}
 
     <input
       ref={inputRef}
@@ -68,6 +74,7 @@ const TypingBox = ({
       value={typedText}
       onChange={handleInputChange}
       className="opacity-0 absolute"
+      disabled={isFinished}
       autoFocus
     />
 
