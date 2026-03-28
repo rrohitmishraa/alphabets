@@ -3,6 +3,7 @@ export default function PopupModal({
   playerName,
   setPlayerName,
   onSubmit,
+  isSubmitting,
 }) {
   if (!show) return null;
 
@@ -21,16 +22,16 @@ export default function PopupModal({
           placeholder="Your name"
           autoFocus
           onKeyDown={(e) => {
-            if (e.key === "Enter") onSubmit();
+            if (e.key === "Enter" && !isSubmitting) onSubmit();
           }}
         />
 
         <button
           onClick={onSubmit}
-          disabled={!playerName}
+          disabled={!playerName || isSubmitting}
           className="w-full bg-black text-white py-2 disabled:opacity-50"
         >
-          Save Score
+          {isSubmitting ? "Saving..." : "Save Score"}
         </button>
       </div>
     </div>

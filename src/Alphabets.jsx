@@ -24,6 +24,7 @@ const SpeedyAlphabet = () => {
     setPlayerName,
     isFinished,
     bestTime,
+    isSubmitting,
   } = useTypingGame();
 
   return (
@@ -68,6 +69,7 @@ const SpeedyAlphabet = () => {
           playerName={playerName}
           setPlayerName={setPlayerName}
           onSubmit={submitScore}
+          isSubmitting={isSubmitting}
         />
       )}
     </div>

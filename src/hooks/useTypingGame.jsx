@@ -18,6 +18,7 @@ export default function useTypingGame() {
   const [playerName, setPlayerName] = useState("");
   const [isFinished, setIsFinished] = useState(false);
   const [bestTime, setBestTime] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -42,6 +43,20 @@ export default function useTypingGame() {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "Tab") {
+        e.preventDefault();
+        if (isSubmitting) return;
+        handleReset();
+        inputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isSubmitting]);
 
   useEffect(() => {
     const savedName = localStorage.getItem("playerName");
@@ -81,7 +96,7 @@ export default function useTypingGame() {
   };
 
   const handleInputChange = (e) => {
-    if (isFinished) return;
+    if (isFinished || showPopup) return;
 
     const inputValue = e.target.value;
 
@@ -148,6 +163,7 @@ export default function useTypingGame() {
 
   const submitScore = async () => {
     if (
+      isSubmitting ||
       !playerName.trim() ||
       playerName.trim().length < 2 ||
       pendingScore == null
@@ -155,6 +171,7 @@ export default function useTypingGame() {
       return;
 
     try {
+      setIsSubmitting(true);
       await saveScore({
         name: playerName,
         time: pendingScore,
@@ -167,6 +184,8 @@ export default function useTypingGame() {
       setPendingScore(null);
     } catch (err) {
       console.error("Error saving score:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -211,5 +230,6 @@ export default function useTypingGame() {
     handleReset,
     isFinished,
     bestTime,
+    isSubmitting,
   };
 }
